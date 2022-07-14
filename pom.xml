@@ -13,9 +13,19 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>simple-springboot-app</name>
 	<description>Demo project for Spring Boot</description>
+
 	<properties>
 		<java.version>11</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+
+		<git.repository>devops9lab/simple-springboot-app</git.repository>
+		<!-- configure a Maven project to use a specific server -->
+		<project.scm.id>github</project.scm.id>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -116,4 +126,15 @@
 		</plugins>
 	</build>
 
+	<scm>
+		<developerConnection>scm:git:https://github.com/${git.repository}.git</developerConnection>
+	</scm>
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub</name>
+			<!-- The root of GitHub registry is at https://maven.pkg.github.com -->
+			<url>https://maven.pkg.github.com/${git.repository}</url>
+		</repository>
+	</distributionManagement>
 </project>
