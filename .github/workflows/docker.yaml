@@ -40,8 +40,7 @@ jobs:
           java-version: 11
 
       - name: Testing
-        run:
-          - ./mvnw test
+        run: ./mvnw test
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
@@ -68,8 +67,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
 
       - name: Build and push Docker image
-        run:
-          - | 
+        run: | 
             ./mvnw clean jib:build \
             -Djib.to.image=${{ env.ACCOUNT }}/simple-springboot-app
 #            -Djib.to.auth.username="pcloud" \
