@@ -23,6 +23,9 @@ public class AccountRestController {
         this.rateLimiterRegistry = rateLimiterRegistry;
     }
 
+    /**
+     * Setups resilience4j ratelimiter event publisher.
+     */
     @PostConstruct
     public void postConstruct() {
         io.github.resilience4j.ratelimiter.RateLimiter.EventPublisher eventPublisher = rateLimiterRegistry
