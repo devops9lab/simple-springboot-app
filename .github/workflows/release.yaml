@@ -15,13 +15,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      # to upload sarif files
-      security-events: write
-      # only required for workflows in private repositories
-      actions: read
-      contents: read
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -34,6 +27,9 @@ jobs:
           cache: 'maven'
           server-id: github
 
+      - name: View settings.xml
+        run: cat /home/runner/.m2/settings.xml
+
       # https://github.com/actions/cache/blob/master/examples.md#java---maven
       - name: Cache local Maven repository
         uses: actions/cache@v2
@@ -45,8 +41,8 @@ jobs:
 
       - name: Configure Git user
         run: |
-          git config user.email "tran.q.the@gmail.com"
-          git config user.name "The Tran"
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
 
       - name: Publish JAR
         run: ./mvnw -B release:prepare release:perform
