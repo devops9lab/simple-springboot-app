@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.pcloud</groupId>
 	<artifactId>simple-springboot-app</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.2</version>
 	<name>simple-springboot-app</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -136,7 +136,7 @@
 
 	<scm>
 		<developerConnection>scm:git:https://github.com/${git.repository}.git</developerConnection>
-	  <tag>HEAD</tag>
+	  <tag>v0.0.2</tag>
   </scm>
 	<distributionManagement>
 		<repository>
