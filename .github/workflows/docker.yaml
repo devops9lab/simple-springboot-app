@@ -77,7 +77,7 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
 #          image-ref: ${{ steps.meta.outputs.tags }}
-          image-ref: latest
+          image-ref: ${{ env.REGISTRY }}/${{ env.ACCOUNT }}/simple-springboot-app
           format: 'sarif'
           output: 'trivy-results.sarif'
 
