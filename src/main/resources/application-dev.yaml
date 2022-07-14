@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    # NOTE: change the db host and port and db name
+    url: "jdbc:postgresql://192.168.205.10:31904/demo"
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+  flyway:
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: none
+      dialect: "org.hibernate.dialect.PostgreSQLDialect"
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true

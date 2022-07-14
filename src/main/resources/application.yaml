@@ -1,0 +1,41 @@
+spring:
+  datasource:
+    url: "jdbc:h2:file:./demo"
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    properties:
+      # enable to generate the schema
+#      javax:
+#        persistence:
+#          schema-generation:
+#            scripts:
+#              action: create
+#              create-target: create.sql
+#              create-source: metadata
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        jdbc:
+          time_zone: UTC
+        naming-strategy: "org.hibernate.cfg.ImprovedNamingStrategy"
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  flyway:
+    enabled: false
+
+management:
+  server:
+    port: 8081
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
