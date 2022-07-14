@@ -1,10 +1,10 @@
 create sequence hibernate_sequence start 1 increment 1;
 create table account_settings
 (
-    id         int8         not null,
-    name       varchar(255) not null,
-    value      varchar(255) not null,
-    account_id int8         not null,
+    id            int8         not null,
+    setting_name          varchar(255) not null,
+    setting_value varchar(255) not null,
+    account_id    int8         not null,
     primary key (id)
 );
 create table accounts

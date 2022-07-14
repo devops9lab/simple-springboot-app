@@ -20,12 +20,12 @@ public class AccountSetting {
     @Setter
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "setting_name", nullable = false)
     @Getter
     @Setter
     private String settingName;
 
-    @Column(name = "value", nullable = false)
+    @Column(name = "setting_value", nullable = false)
     @Getter
     @Setter
     private String settingValue;
