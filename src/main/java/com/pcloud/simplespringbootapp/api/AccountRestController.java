@@ -2,6 +2,7 @@ package com.pcloud.simplespringbootapp.api;
 
 import com.pcloud.simplespringbootapp.db.Account;
 import com.pcloud.simplespringbootapp.db.AccountRepository;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ public class AccountRestController {
         this.accountRepository = accountRepository;
     }
 
+    @RateLimiter(name = "basic")
     @GetMapping
     public Page<Account> getAccounts(Pageable pageable) {
         return accountRepository.findAll(pageable);
