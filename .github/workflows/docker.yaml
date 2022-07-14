@@ -19,7 +19,6 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       # to upload sarif files
@@ -37,6 +36,7 @@ jobs:
         with:
           java-version: 11
 
+      # https://github.com/actions/cache/blob/master/examples.md#java---maven
       - name: Cache local Maven repository
         uses: actions/cache@v2
         with:
@@ -75,15 +75,13 @@ jobs:
       - name: Build and push Docker image
         run: | 
             ./mvnw clean compile jib:build \
-            -Djib.to.image=${{ env.ACCOUNT }}/simple-springboot-app
-#            -Djib.to.auth.username="pcloud" \
-#            -Djib.to.auth.password="${{ secrets.DOCKER_TOKEN }}"
+            -Djib.to.image=${{ steps.meta.outputs.tags }}
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-#          image-ref: ${{ steps.meta.outputs.tags }}
-          image-ref: ${{ env.REGISTRY }}/${{ env.ACCOUNT }}/simple-springboot-app
+          image-ref: ${{ steps.meta.outputs.tags }}
+#          image-ref: ${{ env.REGISTRY }}/${{ env.ACCOUNT }}/simple-springboot-app
           format: 'sarif'
           output: 'trivy-results.sarif'
 
