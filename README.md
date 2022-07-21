@@ -16,3 +16,14 @@ Actuator (port 8081) endpoints:
 - `/actuator/caches`
 - `/actuator/health`
 - `/actuator/metrics`
+
+Install with [https://quangthe.github.io/helm-charts/](https://quangthe.github.io/helm-charts/) helm chart
+
+```bash
+helm repo add helm-charts https://quangthe.github.io/helm-charts
+helm repo update
+
+helm upgrade --install myapp helm-charts/simple-springboot-helm \
+--set image.repository=pcloud/simple-springboot-app \
+--set image.tag=0.0.3
+```
