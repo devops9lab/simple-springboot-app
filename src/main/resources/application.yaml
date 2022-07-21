@@ -1,11 +1,40 @@
 resilience4j.ratelimiter:
   instances:
     basic:
-      limitForPeriod: 2
-      limitRefreshPeriod: 10s
+      limitForPeriod: 1
+      limitRefreshPeriod: 60s
       timeoutDuration: 0
 
+bucket4j:
+  enabled: true
+  filters:
+    - cache-name: buckets
+      filter-method: servlet
+      url: /api/bucket4j*
+      metrics:
+        tags:
+          - key: IP
+            expression: getRemoteAddr()
+            types: REJECTED_COUNTER # for data privacy reasons the IP should only be collected on bucket rejections
+          - key: URL
+            expression: getRequestURI()
+      rate-limits:
+        # Limiting based on IP-Address
+        - expression: "getRemoteAddr()"
+          bandwidths:
+            - capacity: 1
+              time: 1
+              unit: minutes
+              fixed-refill-interval: 1
+              fixed-refill-interval-unit: minutes
 spring:
+  cache:
+    jcache:
+      provider: com.github.benmanes.caffeine.jcache.spi.CaffeineCachingProvider
+    cache-names:
+      - buckets
+    caffeine:
+      spec: maximumSize=100000,expireAfterAccess=3600s
   datasource:
     url: "jdbc:h2:mem:demo"
     username: sa
@@ -35,11 +64,18 @@ management:
   server:
     port: 8081
   endpoints:
+    web:
+      exposure:
+        include: "*"
     enabled-by-default: false
   endpoint:
+    caches:
+      enabled: true
     health:
       enabled: true
       show-details: always
+    metrics:
+      enabled: true
   health:
     livenessstate:
       enabled: true
